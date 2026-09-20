@@ -1,4 +1,5 @@
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class Player : MonoBehaviour
 {
@@ -35,6 +36,17 @@ public class Player : MonoBehaviour
             Bullet bulletScript = bullet.GetComponent<Bullet>();
 
             bulletScript.targetVector = transform.right;
+        }
+    }
+
+    private void OnCollisionEnter(Collision collision)
+    {
+        if (collision.gameObject.CompareTag("Enemy"))
+        {
+            SceneManager.LoadScene(SceneManager.GetActiveScene().name);
+        } else
+        {
+            Debug.Log("He colisionado con otra cosa");
         }
     }
 }
