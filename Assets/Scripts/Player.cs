@@ -6,8 +6,8 @@ public class Player : MonoBehaviour
 
     public float thrutForce = 10f;
     public float rotationSpeed = 120f;
-
     public GameObject gun, bulletPrefab;
+    public static int SCORE = 0;
 
     private Rigidbody _rigid;
 
@@ -43,6 +43,7 @@ public class Player : MonoBehaviour
     {
         if (collision.gameObject.CompareTag("Enemy"))
         {
+            SCORE = 0;
             SceneManager.LoadScene(SceneManager.GetActiveScene().name);
         } else
         {

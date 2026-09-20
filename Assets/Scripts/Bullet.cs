@@ -1,4 +1,5 @@
 using UnityEngine;
+using UnityEngine.UI;
 
 public class Bullet : MonoBehaviour
 {
@@ -24,8 +25,22 @@ public class Bullet : MonoBehaviour
     {
         if (collision.gameObject.CompareTag("Enemy"))
         {
+            IncreaseScore();
             Destroy(collision.gameObject);
             Destroy(gameObject);
         }
+    }
+
+    private void IncreaseScore()
+    {
+        Player.SCORE++;
+        Debug.Log(Player.SCORE);
+        UpdateScoreText();
+    }
+
+    private void UpdateScoreText()
+    {
+        GameObject go = GameObject.FindGameObjectWithTag("UI");
+        go.GetComponent<Text>().text = "Score: " + Player.SCORE;
     }
 }
