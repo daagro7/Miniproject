@@ -9,6 +9,9 @@ public class Player : MonoBehaviour
     public GameObject gun, bulletPrefab;
     public static int SCORE = 0;
 
+    public float xBorderLimit = 6f;
+    public float yBorderLimit = 6f;
+
     private Rigidbody _rigid;
 
     // Start is called once before the first execution of Update after the MonoBehaviour is created
@@ -20,6 +23,18 @@ public class Player : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+
+        var newPos = transform.position;
+        if (newPos.x > xBorderLimit)
+            newPos.x = -xBorderLimit;
+        if (newPos.x < -xBorderLimit)
+            newPos.x = xBorderLimit;
+        if (newPos.y > yBorderLimit)
+            newPos.y = -yBorderLimit+1;
+        if (newPos.y < -yBorderLimit)
+            newPos.y = yBorderLimit;
+        transform.position = newPos;
+
         float rotation = Input.GetAxis("Horizontal") * Time.deltaTime;
         float thrust = Input.GetAxis("Vertical") * Time.deltaTime;
 
@@ -49,5 +64,10 @@ public class Player : MonoBehaviour
         {
             Debug.Log("He colisionado con otra cosa");
         }
+    }
+
+    private void OnTriggerEnter(Collider collision)
+    {
+        if (collision.gameObject.CompareTag("Bullet")) {}
     }
 }
