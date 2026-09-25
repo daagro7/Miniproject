@@ -15,6 +15,8 @@ public class Player : MonoBehaviour
     public GameObject pauseMenu;
     private bool isPaused = false;
 
+    public GameObject gameOverMenu;
+
     private Rigidbody _rigid;
 
     // Start is called once before the first execution of Update after the MonoBehaviour is created
@@ -26,16 +28,9 @@ public class Player : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (Input.GetKeyDown(KeyCode.Escape))
+        if (Input.GetKeyDown(KeyCode.Escape) && !isPaused)
         {
-            if (isPaused)
-            {
-                Resume();
-            }
-            else
-            {
-                Pause();
-            }
+            Pause();
         }
 
         // Infinite space
@@ -80,8 +75,7 @@ public class Player : MonoBehaviour
         // Collision with Enemy (Asteroid/Meteor)
         if (collision.gameObject.CompareTag("Enemy"))
         {
-            SCORE = 0;
-            SceneManager.LoadScene(SceneManager.GetActiveScene().name);
+            GameOver();
         } else
         {
             Debug.Log("He colisionado con otra cosa");
@@ -110,5 +104,14 @@ public class Player : MonoBehaviour
         pauseMenu.SetActive(false);
         Time.timeScale = 1f;
         isPaused = false;
+    }
+
+    public void GameOver()
+    {
+        gameOverMenu.SetActive(true);
+        Time.timeScale = 0f;
+        SCORE = 0;
+        isPaused = true;
+        Debug.Log("Estoy pasando por aqui");
     }
 }

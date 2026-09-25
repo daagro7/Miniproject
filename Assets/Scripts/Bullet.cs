@@ -21,6 +21,10 @@ public class Bullet : MonoBehaviour
         transform.Translate(speed * targetVector * Time.deltaTime);
     }
 
+    /**
+     * Check if collision with an enemy and, in that case,
+     * increase the score and destroys the asteroid/meteor and the bullet
+     */
     private void OnCollisionEnter(Collision collision)
     {
         if (collision.gameObject.CompareTag("Enemy"))
@@ -31,6 +35,9 @@ public class Bullet : MonoBehaviour
         }
     }
 
+    /**
+     * Increase the score in 1
+     */
     private void IncreaseScore()
     {
         Player.SCORE++;
@@ -38,6 +45,9 @@ public class Bullet : MonoBehaviour
         UpdateScoreText();
     }
 
+    /**
+     * Update the score text
+     */
     private void UpdateScoreText()
     {
         GameObject go = GameObject.FindGameObjectWithTag("UI");

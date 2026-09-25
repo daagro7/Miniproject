@@ -6,13 +6,17 @@ public class MainMenu : MonoBehaviour
 
     public Player playerScript;
 
-    // Carga la escena del juego (asegúrate de poner el nombre exacto de tu escena)
+    /**
+     * Resume the game
+     */
     public void Resume()
     {
         playerScript.Resume();
     }
 
-    // Cierra el juego (funciona en la compilación final)
+    /**
+     * Quit the game
+     */
     public void Quit()
     {
         Time.timeScale = 1f;

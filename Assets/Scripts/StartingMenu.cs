@@ -3,13 +3,17 @@ using UnityEngine.SceneManagement;
 
 public class StartingMenu : MonoBehaviour
 {
-    // Carga la escena del juego (asegúrate de poner el nombre exacto de tu escena)
+    /**
+     * Load a new game
+     */
     public void NewGame()
     {
         SceneManager.LoadScene("GameScene");
     }
 
-    // Cierra el juego (funciona en la compilación final)
+    /**
+     * Close the application
+     */
     public void CloseAsteroid()
     {
         Debug.Log("Saliendo del juego...");
