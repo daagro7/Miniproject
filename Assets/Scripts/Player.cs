@@ -12,6 +12,9 @@ public class Player : MonoBehaviour
     public float xBorderLimit = 6f;
     public float yBorderLimit = 6f;
 
+    public GameObject pauseMenu;
+    private bool isPaused = false;
+
     private Rigidbody _rigid;
 
     // Start is called once before the first execution of Update after the MonoBehaviour is created
@@ -23,7 +26,19 @@ public class Player : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        if (Input.GetKeyDown(KeyCode.Escape))
+        {
+            if (isPaused)
+            {
+                Resume();
+            }
+            else
+            {
+                Pause();
+            }
+        }
 
+        // Infinite space
         var newPos = transform.position;
         if (newPos.x > xBorderLimit)
             newPos.x = -xBorderLimit;
@@ -35,6 +50,7 @@ public class Player : MonoBehaviour
             newPos.y = yBorderLimit;
         transform.position = newPos;
 
+        // Player movement
         float rotation = Input.GetAxis("Horizontal") * Time.deltaTime;
         float thrust = Input.GetAxis("Vertical") * Time.deltaTime;
 
@@ -44,6 +60,7 @@ public class Player : MonoBehaviour
 
         transform.Rotate(Vector3.forward, -rotation * rotationSpeed);
 
+        // Firing bullets
         if (Input.GetKeyDown(KeyCode.Space))
         {
             GameObject bullet = Instantiate(bulletPrefab, gun.transform.position, Quaternion.identity);
@@ -54,8 +71,13 @@ public class Player : MonoBehaviour
         }
     }
 
+    /**
+     * Check if collision with an enemy and, in that case,
+     * the game is restarted due to having lost the game.
+     */
     private void OnCollisionEnter(Collision collision)
     {
+        // Collision with Enemy (Asteroid/Meteor)
         if (collision.gameObject.CompareTag("Enemy"))
         {
             SCORE = 0;
@@ -66,8 +88,27 @@ public class Player : MonoBehaviour
         }
     }
 
+    /**
+     * Check if there is a collision with a bullet and, in that case,
+     * the collision is ignore.
+     */
     private void OnTriggerEnter(Collider collision)
     {
+        // No collision with Bullet
         if (collision.gameObject.CompareTag("Bullet")) {}
+    }
+
+    public void Pause()
+    {
+        pauseMenu.SetActive(true);
+        Time.timeScale = 0f;
+        isPaused = true;
+    }
+
+    public void Resume()
+    {
+        pauseMenu.SetActive(false);
+        Time.timeScale = 1f;
+        isPaused = false;
     }
 }
