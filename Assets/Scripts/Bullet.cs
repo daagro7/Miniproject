@@ -4,10 +4,27 @@ using UnityEngine.UI;
 public class Bullet : MonoBehaviour
 {
 
-
     public float speed = 10f;
     public float maxLifeTime = 3f;
     public Vector3 targetVector;
+
+    /**
+     * Programmed its deactivation if it doesn't collide with anything in X seconds
+     */
+    private void OnEnable()
+    {
+        CancelInvoke(nameof(Deactivate));
+        
+        Invoke(nameof(Deactivate), maxLifeTime);
+    }
+
+    /**
+     * Canceled the timer to prevent accidental calls when it's saved.
+     */
+    private void OnDisable()
+    {
+        CancelInvoke(nameof(Deactivate));
+    } 
 
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
@@ -42,6 +59,14 @@ public class Bullet : MonoBehaviour
             
             Destroy(gameObject);
         }
+    }
+
+    /**
+     * Return the bullet calling the function ReturnBullet of BulletPool
+     */
+    private void Deactivate()
+    {
+        BulletPool.Instance.ReturnBullet(gameObject);
     }
 
     /**

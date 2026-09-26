@@ -58,11 +58,12 @@ public class Player : MonoBehaviour
         // Firing bullets
         if (Input.GetKeyDown(KeyCode.Space))
         {
-            GameObject bullet = Instantiate(bulletPrefab, gun.transform.position, Quaternion.identity);
+            BulletPool.Instance.GetBullet(gun.transform.position, transform.right);
+            // GameObject bullet = Instantiate(bulletPrefab, gun.transform.position, Quaternion.identity);
 
-            Bullet bulletScript = bullet.GetComponent<Bullet>();
+            // Bullet bulletScript = bullet.GetComponent<Bullet>();
 
-            bulletScript.targetVector = transform.right;
+            // bulletScript.targetVector = transform.right;
         }
     }
 
@@ -92,6 +93,9 @@ public class Player : MonoBehaviour
         if (collision.gameObject.CompareTag("Bullet")) {}
     }
 
+    /**
+     * Active the pause menu and pause the time
+     */
     public void Pause()
     {
         pauseMenu.SetActive(true);
@@ -99,6 +103,9 @@ public class Player : MonoBehaviour
         isPaused = true;
     }
 
+    /**
+     * Resume the game
+     */
     public void Resume()
     {
         pauseMenu.SetActive(false);
@@ -106,12 +113,14 @@ public class Player : MonoBehaviour
         isPaused = false;
     }
 
+    /**
+     * Active the game over menu and pause the time
+     */
     public void GameOver()
     {
         gameOverMenu.SetActive(true);
         Time.timeScale = 0f;
         SCORE = 0;
         isPaused = true;
-        Debug.Log("Estoy pasando por aqui");
     }
 }
