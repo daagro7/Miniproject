@@ -13,7 +13,7 @@ public class Meteor : MonoBehaviour
     public float maxTimeLife = 3f;
 
     public float minForce = 2f;
-    public float maxForce = 5f;
+    public float maxForce = 4f;
 
     private float spawnNext = 0;
 
@@ -78,6 +78,6 @@ public class Meteor : MonoBehaviour
             rb.AddForce(randomDir * randomForce, ForceMode.Impulse);
         }
 
-        Destroy(meteor, maxTimeLife);
+        // Destroy(meteor, maxTimeLife);
     }
 }

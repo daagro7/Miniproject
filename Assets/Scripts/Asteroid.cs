@@ -1,3 +1,4 @@
+using System;
 using UnityEngine;
 using UnityEngine.Rendering.Universal;
 
@@ -11,6 +12,10 @@ public class Asteroid : MonoBehaviour
     public float splitAngle = 60f;
     public float maxTimeLife = 3f;
 
+    // Despawn limits
+    public float xLimit = 7f;
+    public float yLimit = 7f;
+
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
@@ -20,6 +25,11 @@ public class Asteroid : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        Vector3 pos = transform.position;
+        if (Mathf.Abs(pos.x) > xLimit || Mathf.Abs(pos.y) > yLimit)
+        {
+            Destroy(gameObject);
+        }
     }
 
     /**
@@ -75,7 +85,7 @@ public class Asteroid : MonoBehaviour
                 // rb.AddForce(randomDirection.normalized * splitForce, ForceMode.Impulse);
             }
 
-            Destroy(smallAsteroid, maxTimeLife);
+            // Destroy(smallAsteroid, maxTimeLife);
         }
     }
 }
