@@ -1567,7 +1567,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e6519184369c4e44dbbbbea2fc02cc17, type: 3}
   m_Name: 
   m_EditorClassIdentifier: '::'
-  thrutForce: 100
+  thrutForce: 50
   rotationSpeed: 300
   gun: {fileID: 1937739276}
   bulletPrefab: {fileID: 5244345894234833891, guid: 3920869faf7660c41bc6ff3d5d579a29, type: 3}

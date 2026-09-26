@@ -5,6 +5,7 @@ using UnityEngine.Rendering.Universal;
 public class Asteroid : MonoBehaviour
 {
 
+    // Division config
     public bool isMainAsteroid = true;
     public float smallScaleMultiplier = 0.5f;
     public int splitCount = 2;
@@ -51,25 +52,28 @@ public class Asteroid : MonoBehaviour
      */
     private void Split(Vector3 bulletDirection)
     {
-        
-        Vector3 baseDirection = bulletDirection.normalized;
-
+        // Bullet direction
+        Vector3 baseDir = bulletDirection.normalized;
         float halfAngle = splitAngle / 2f;
 
+        // Calculate the two vectors
         Quaternion leftRotation = Quaternion.Euler(0, 0, halfAngle);
         Quaternion rightRotation = Quaternion.Euler(0, 0, -halfAngle);
-
-        Vector3 dir1 = leftRotation * baseDirection;
-        Vector3 dir2 = rightRotation * baseDirection;
+        Vector3 dir1 = leftRotation * baseDir;
+        Vector3 dir2 = rightRotation * baseDir;
 
         Vector3[] spawnDirections = new Vector3[] { dir1, dir2 };
 
         for (int i = 0; i < splitCount; i++)
         {
-            GameObject smallAsteroid = Instantiate(gameObject, transform.position, Quaternion.identity);
+            Vector3 spawnPos = transform.position + (spawnDirections[i] * 0.2f);
             
+            GameObject smallAsteroid = Instantiate(gameObject, spawnPos, Quaternion.identity);
+            
+            // Reduce size
             smallAsteroid.transform.localScale = transform.localScale * smallScaleMultiplier;
             
+            // Mark as secondary
             Asteroid smallAstScript = smallAsteroid.GetComponent<Asteroid>();
             if (smallAstScript != null)
             {
@@ -79,13 +83,13 @@ public class Asteroid : MonoBehaviour
             Rigidbody rb = smallAsteroid.GetComponent<Rigidbody>();
             if(rb != null)
             {
-                rb.AddForce(spawnDirections[i] * splitForce, ForceMode.Impulse);
-                // Vector3 randomDirection = Random.insideUnitSphere;
-                // randomDirection.z = 0;
-                // rb.AddForce(randomDirection.normalized * splitForce, ForceMode.Impulse);
-            }
+                // Reset velocities from the main asteroid
+                rb.linearVelocity = Vector3.zero;
+                rb.angularVelocity = Vector3.zero;
 
-            // Destroy(smallAsteroid, maxTimeLife);
+                // Apply the direct impulse
+                rb.AddForce(spawnDirections[i] * splitForce, ForceMode.Impulse);
+            }
         }
     }
 }
