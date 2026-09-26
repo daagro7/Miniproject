@@ -107,7 +107,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: '::'
   speed: 5
-  maxLifeTime: 5
+  maxLifeTime: 3
   targetVector: {x: 1, y: 0, z: 0}
 --- !u!65 &6115323046397642424
 BoxCollider:

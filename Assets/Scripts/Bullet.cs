@@ -30,7 +30,16 @@ public class Bullet : MonoBehaviour
         if (collision.gameObject.CompareTag("Enemy"))
         {
             IncreaseScore();
-            Destroy(collision.gameObject);
+
+            Asteroid asteroid = collision.gameObject.GetComponent<Asteroid>();
+            if (asteroid != null)
+            {
+                asteroid.OnHit(targetVector);
+            } else
+            {
+                Destroy(collision.gameObject);
+            }
+            
             Destroy(gameObject);
         }
     }
