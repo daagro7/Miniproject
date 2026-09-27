@@ -161,3 +161,5 @@ MonoBehaviour:
   splitForce: 2
   splitAngle: 60
   maxTimeLife: 2
+  xLimit: 13
+  yLimit: 11

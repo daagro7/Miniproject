@@ -693,7 +693,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::BulletPool
   bulletPrefab: {fileID: 5244345894234833891, guid: 3920869faf7660c41bc6ff3d5d579a29, type: 3}
-  poolSize: 75
+  poolSize: 20
   offscreenPosition: {x: -999, y: -999, z: 0}
 --- !u!1 &317563429
 GameObject:
@@ -837,7 +837,7 @@ Camera:
   far clip plane: 1000
   field of view: 60
   orthographic: 1
-  orthographic size: 5
+  orthographic size: 7
   m_Depth: -1
   m_CullingMask:
     serializedVersion: 2
@@ -927,8 +927,8 @@ MonoBehaviour:
   meteorPrefab: {fileID: 7399304324062132097, guid: 033461e12e17d2a40a04cc55197f365b, type: 3}
   spawnRatePerMinute: 30
   spawnRateIncrement: 1
-  xLimit: 6
-  yLimit: 6
+  xLimit: 12
+  yLimit: 10
   maxTimeLife: 3
   minForce: 2
   maxForce: 5
@@ -1618,8 +1618,8 @@ MonoBehaviour:
   rotationSpeed: 300
   gun: {fileID: 1937739276}
   bulletPrefab: {fileID: 5244345894234833891, guid: 3920869faf7660c41bc6ff3d5d579a29, type: 3}
-  xBorderLimit: 5.75
-  yBorderLimit: 5.25
+  xBorderLimit: 13
+  yBorderLimit: 8
   pauseMenu: {fileID: 317563429}
   gameOverMenu: {fileID: 1359787958}
 --- !u!65 &873758321
